@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.2;
+
+contract MyToken {
+
+    string public name;
+    string public symbol;
+    uint public totalSupply;
+
+    mapping(address => uint) public balances;
+
+    function mint(address to, uint value) public {
+        totalSupply += value;
+        balances[to] += value;
+    }
+
+    function burn(uint value) public {
+        require(balances[msg.sender] >= value, "Insufficient balance for burning");
+        totalSupply -= value;
+        balances[msg.sender] -= value;
+    }
+}
